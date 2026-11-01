@@ -39,11 +39,13 @@ The biggest lesson for me was how much the drift assumption matters. If I let th
 
 Prices come from Yahoo Finance, adjusted for dividends and splits. New York and Lima have different holidays, so each stock's daily returns are calculated on its own trading days only. Volatility is annualised from three years of daily log returns.
 
-Each stock follows a geometric Brownian motion,
+Each stock follows a geometric Brownian motion:
 
-S_T = S_0 · exp((μ − σ²/2)·T + σ·√T·Z),
+```math
+S_T = S_0 \exp\left(\left(\mu - \tfrac{\sigma^2}{2}\right)T + \sigma\sqrt{T}\,Z\right)
+```
 
-simulated over 252 daily steps with 10,000 paths (using antithetic sampling to reduce noise). The drift μ is the risk-free rate of each stock's currency: the 13-week US T-bill for the dollar stocks, and 4.5% for soles, which I set by hand.
+It's simulated over 252 daily steps with 10,000 paths (using antithetic sampling to reduce noise). The drift μ is the risk-free rate of each stock's currency: the 13-week US T-bill for the dollar stocks, and 4.5% for soles, which I set by hand.
 
 From the simulated year-end prices I take the 10th, 50th and 90th percentiles, the 95% Value at Risk and expected shortfall, and the share of paths that finish above today's price.
 
